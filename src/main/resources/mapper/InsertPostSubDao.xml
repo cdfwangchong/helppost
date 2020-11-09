@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfg.helppost.dao.InsertPostSubDao">
+
+    <insert id="insertPostSubLog" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into postsublog (PSSEQNO,PSGWKH,PSNAME,PSPHONENO,
+        PSPOSTCODE, PSPROVINCENAME, PSCITYNAME,
+        PSAREANAME, PSTOWNNAME, PSDETAILADDRESS,
+        PSTYPE, PSMARKET, PSXSDNO,PSPGKCNT,PSSQSJ,PSOPRATID)
+        select tab.* from (
+        <foreach collection="list" item="ica" index="index" separator="UNION ALL">
+            select
+            #{ica.seqno,jdbcType=DECIMAL},
+            #{ica.gwkh,jdbcType=VARCHAR},
+            #{ica.rec_name,jdbcType=VARCHAR},
+            #{ica.rec_phoneno,jdbcType=VARCHAR},
+            #{ica.rec_postcode,jdbcType=VARCHAR},
+            #{ica.rec_provincename,jdbcType=VARCHAR},
+            #{ica.rec_cityname,jdbcType=VARCHAR},
+            #{ica.rec_areaname,jdbcType=VARCHAR},
+            #{ica.rec_townname,jdbcType=VARCHAR},
+            #{ica.rec_detailaddress,jdbcType=VARCHAR},
+            #{ica.type,jdbcType=VARCHAR},
+            #{ica.market,jdbcType=VARCHAR},
+            #{ica.rec_xsdno,jdbcType=VARCHAR},
+            #{ica.rec_pkgcnt,jdbcType=DECIMAL},
+            #{ica.sqsj,jdbcType=TIMESTAMP},
+            #{ica.worknumber,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )tab
+    </insert>
+</mapper>
