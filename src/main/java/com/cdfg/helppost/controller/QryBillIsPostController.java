@@ -40,7 +40,7 @@ public class QryBillIsPostController {
         XsdnoDto xsdnoDto;
 
         if (login == null){
-            logger.error("邮寄提货单查询接口传入的参数值为null");
+            logger.error("未邮寄提货单接口传入的参数值为null");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
         String token = request.getHeader("Authorization");
@@ -91,7 +91,7 @@ public class QryBillIsPostController {
     public Result<String> updateLeaved(HttpServletRequest request,@RequestBody LeavedDto leavedDto) {
 
         if (leavedDto == null){
-            logger.error("邮寄提货单查询接口传入的参数值为null");
+            logger.error("邮寄提货单确认接口传入的参数值为null");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
         String token = request.getHeader("Authorization");

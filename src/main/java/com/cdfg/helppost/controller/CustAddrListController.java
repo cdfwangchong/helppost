@@ -33,7 +33,7 @@ public class CustAddrListController {
     @ResponseBody
     public Result<String> insertCustAddrList(HttpServletRequest request, @RequestBody InsertCustAddrAndListDto ica){
         if (ica == null) {
-            logger.error("获取到的对象值为空");
+            logger.error("商品邮寄接口获取到的对象值为空");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
 

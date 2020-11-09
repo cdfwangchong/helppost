@@ -36,7 +36,7 @@ public class QryBillDetailController {
     @ResponseBody
     public Result<List<PickBillDto>> qryselldetail(HttpServletRequest request, @RequestBody PickNumDto picknumdto) {
         if (picknumdto == null) {
-            logger.error("获取到的对象值为空");
+            logger.error("提货单明细接口获取到的对象值为空");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
         String pick_num = picknumdto.getXsdno();//提货单号

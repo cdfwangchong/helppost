@@ -98,7 +98,6 @@ public class QryBillIsPostServiceImpl implements QryBillIsPostService {
         param.put("i_gwkh",leavedDto.getGwkh());
         param.put("seq_no",leavedDto.getSeq_no());
         param.put("operator",worknumber);
-
         String ret_flag;
 
         try {

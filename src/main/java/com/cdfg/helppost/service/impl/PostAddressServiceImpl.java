@@ -3,9 +3,7 @@ package com.cdfg.helppost.service.impl;
 import cn.cdfg.exceptionHandle.ExceptionPrintMessage;
 import cn.cdfg.exceptionHandle.HelpPostNotFoundException;
 import com.cdfg.helppost.dao.PostaddressDao;
-import com.cdfg.helppost.dao.UserlistDao;
 import com.cdfg.helppost.pojo.dto.PostaddressDto;
-import com.cdfg.helppost.pojo.dto.Userlist;
 import com.cdfg.helppost.pojo.until.Login;
 import com.cdfg.helppost.service.PostAddressService;
 import org.apache.log4j.Logger;
@@ -23,9 +21,6 @@ public class PostAddressServiceImpl implements PostAddressService {
     @Autowired
     PostaddressDao paDao;
 
-    @Autowired
-    UserlistDao ulDao;
-
     Logger logger = Logger.getLogger(PostAddressServiceImpl.class);
 
     /**
@@ -36,19 +31,18 @@ public class PostAddressServiceImpl implements PostAddressService {
     @Override
     public PostaddressDto qryPostAddress(Login login) {
         String gwkh = login.getGwkh();//客人的购物卡号
-        Userlist ul = ulDao.selectByPrimaryKey(gwkh);
-        logger.info("获取顾客地址前查出客人购物卡号"+gwkh);
 
         PostaddressDto paDto;
         try {
             paDto = paDao.selectByPrimaryKey(gwkh);
 
             if (paDto != null) {
-                logger.info("取到顾客"+ul.getName()+"的地址信息"+paDto.getRec_provincename()+
+                logger.info("取到顾客"+gwkh+"的地址信息"+paDto.getRec_provincename()+
                         paDto.getRec_cityname()+paDto.getRec_areaname()+paDto.getRec_townname()
                         +paDto.getRec_detailaddress());
             }else {
-                paDto = new PostaddressDto();
+                logger.error("获取到的对象值为空");
+                throw new HelpPostNotFoundException(errCode_5,errMsg_5);
             }
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
@@ -65,10 +59,6 @@ public class PostAddressServiceImpl implements PostAddressService {
      */
     @Override
     public int insertPostAddress(PostaddressDto ipdDto) {
-        //查出顾客的购物卡号
-        Userlist ul = ulDao.selectByPrimaryKey(ipdDto.getGwkh());
-        ipdDto.setGwkh(ul.getIdseq());
-        logger.info("新增顾客地址前查出客人购物卡号"+ul.getIdseq());
         int result;
         Map param = new HashMap<String,Integer>();
         try {
@@ -83,14 +73,14 @@ public class PostAddressServiceImpl implements PostAddressService {
         }
             String ret_flag = (String) param.get("ret_flag");
             if ("1".equals(ret_flag)) {
-                logger.info("顾客"+ul.getName()+"存在未完结的邮寄申请，不能修改地址");
+                logger.info("顾客"+ipdDto.getGwkh()+"存在未完结的邮寄申请，不能修改地址");
                 throw new HelpPostNotFoundException(errCode14,errMsg14);
             }
 
         try {
             result = paDao.insert(ipdDto);
             if (result > 0) {
-                logger.info("顾客"+ul.getName()+"地址新增成功");
+                logger.info("顾客"+ipdDto.getGwkh()+"地址新增成功");
             }
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
