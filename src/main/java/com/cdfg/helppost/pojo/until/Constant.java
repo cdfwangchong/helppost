@@ -62,6 +62,9 @@ public final class Constant {
     public static int errCode_17 = 1012;
     public static String errMsg_17 = "当日邮寄申请票数已满";
 
+    public static int errCode_18 = 1013;
+    public static String errMsg_18 = "改用户在地址管理表中无记录";
+
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

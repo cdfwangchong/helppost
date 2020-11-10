@@ -49,10 +49,9 @@ public class CustAddrListServiceImpl implements CustAddrListService {
                 ret_flag = (String) param.get("ret_flag");
             } catch (Exception e) {
                 logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-                logger.error("取消邮寄申请时，判断是否符合条件取消存储过程返回异常");
+                logger.error("取消邮寄申请时，判断是否符合条件取消的存储过程返回异常");
                 throw new HelpPostNotFoundException(errCode_3,errMsg_3);
             }
-
             if ("2001".equals(ret_flag)) {
                 logger.info("离航班起飞时间不足48小时，不能取消");
                 throw new HelpPostNotFoundException(errCode_12,errMsg_12);
@@ -218,7 +217,7 @@ public class CustAddrListServiceImpl implements CustAddrListService {
 
         if (index != icadList.size()) {
             logger.error("没有正确写入邮寄提交日志表");
-            throw new HelpPostNotFoundException(errCode_4,errMsg_4);
+            throw new HelpPostNotFoundException(errCode_6,errMsg_6);
         }
 
         int ret = 0;
@@ -231,7 +230,7 @@ public class CustAddrListServiceImpl implements CustAddrListService {
         }
         if (ret != icadList.size()) {
             logger.error("List中的数据没有正确写入顾客地址列表");
-            throw new HelpPostNotFoundException(errCode_4,errMsg_4);
+            throw new HelpPostNotFoundException(errCode_6,errMsg_6);
         }
         return seqnoStr;
     }

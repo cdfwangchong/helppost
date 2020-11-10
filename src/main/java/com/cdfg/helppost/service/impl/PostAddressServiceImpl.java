@@ -47,7 +47,7 @@ public class PostAddressServiceImpl implements PostAddressService {
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("邮寄地址管理表查询异常");
-            throw new HelpPostNotFoundException(errCode14,errMsg14);
+            throw new HelpPostNotFoundException(errCode_18,errMsg_18);
         }
         return paDto;
     }
@@ -85,7 +85,7 @@ public class PostAddressServiceImpl implements PostAddressService {
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("邮寄地址管理表写入异常");
-            throw new HelpPostNotFoundException(errCode,errMsg);
+            throw new HelpPostNotFoundException(errCode_6,errMsg_6);
         }
         return result;
     }

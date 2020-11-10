@@ -107,6 +107,4 @@ public class QryBillIsPostController {
             throw new HelpPostNotFoundException(errCode_15,errMsg_15);
         }
     }
-
-
 }
