@@ -13,6 +13,9 @@ import com.cdfg.helppost.service.CustAddrListService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -38,6 +41,7 @@ public class CustAddrListServiceImpl implements CustAddrListService {
      * @return
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout = 30,rollbackFor = Exception.class)
     public String insertCustAddrList(InsertCustAddrAndListDto ica,String worknumber) {
         //当取消邮寄申请时，判断是否符合条件取消
         Map param = new HashMap<String,Integer>();
@@ -57,8 +61,8 @@ public class CustAddrListServiceImpl implements CustAddrListService {
                 throw new HelpPostNotFoundException(errCode_12,errMsg_12);
             }
             if ("2002".equals(ret_flag)) {
-                logger.info("该邮寄申请单中包含状态为已提货的提货单，不能取消");
-                throw new HelpPostNotFoundException(errCode_13,errMsg_13);
+                logger.info("该邮寄申请单含状态为已提货的提货单，不能取消");
+                throw new HelpPostNotFoundException(errCode_19,errMsg_19);
             }
         }
 
@@ -148,6 +152,7 @@ public class CustAddrListServiceImpl implements CustAddrListService {
             for (Map.Entry<String,String> entry : Markmap.entrySet()) {
                 if (entry.getValue() != null) {
                     int seqno = clDao.nextvalKey();
+                    System.out.println(seqno);
                     InsertCustAddrDto icaDto = new InsertCustAddrDto();
                     icaDto.setRec_name(ica.getRec_name());
                     icaDto.setRec_phoneno(ica.getRec_phoneno());

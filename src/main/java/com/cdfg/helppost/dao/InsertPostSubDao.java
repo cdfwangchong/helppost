@@ -12,5 +12,4 @@ public interface InsertPostSubDao {
 
     int insertPostSubLog(List<PostLogEntity> record);
 
-    int insert(List<PostLogEntity> record);
 }

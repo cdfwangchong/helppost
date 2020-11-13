@@ -47,8 +47,6 @@ public class PostAddressController {
 
         PostaddressDto pd = paService.qryPostAddress(login);
         logger.info("取到收货地址管理接口的传入参数"+login.getGwkh());
-
-
         return new Result<PostaddressDto>(sucCode,sucMsg,pd);
     }
 

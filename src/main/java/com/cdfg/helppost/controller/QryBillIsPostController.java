@@ -94,6 +94,11 @@ public class QryBillIsPostController {
             logger.error("邮寄提货单确认接口传入的参数值为null");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
+
+        if (leavedDto.getSeq_no().isEmpty()) {
+            logger.error("取到确认邮寄单的序号参数值为null");
+            throw new HelpPostNotFoundException(errCode_20,errMsg_20);
+        }
         String token = request.getHeader("Authorization");
         String worknumber = new Token().CheckToken(token);
 //        String worknumber = "3859";

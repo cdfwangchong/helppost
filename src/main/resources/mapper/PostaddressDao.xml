@@ -63,5 +63,4 @@
         #{ret_flag,mode=OUT,jdbcType=VARCHAR}
         )}
     </select>
-
 </mapper>

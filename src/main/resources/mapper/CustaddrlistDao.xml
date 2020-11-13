@@ -38,7 +38,7 @@
     where SEQNO = #{seqno,jdbcType=DECIMAL}
   </select>
 
-  <select id="nextvalKey" resultType="java.lang.Integer">
+  <select id="nextvalKey" resultType="java.lang.Integer" useCache="false" flushCache="true">
       select dbusrpos.SEQ_CUSTADDRLIST.nextval AS seqno from dual
   </select>
 

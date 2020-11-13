@@ -42,10 +42,7 @@ public final class Constant {
     public static String errMsg_11 = "提货方式不是【邮寄提货】";
 
     public static int errCode_12 = 3005;
-    public static String errMsg_12 = "提货状态不是【待邮寄】";
-
-    public static int errCode_13 = 3006;
-    public static String errMsg_13 = "不存在";
+    public static String errMsg_12 = "离航班起飞时间不足48小时，不能取消";
 
     public static int errCode_14 = 1009;
     public static String errMsg_14 = "该顾客没有邮寄的商品";
@@ -64,6 +61,12 @@ public final class Constant {
 
     public static int errCode_18 = 1013;
     public static String errMsg_18 = "改用户在地址管理表中无记录";
+
+    public static int errCode_19 = 3006;
+    public static String errMsg_19 = "该邮寄申请单含状态为已提货的提货单，不能取消";
+
+    public static int errCode_20 = 1006;
+    public static String errMsg_20 = "获取到的SEQNO值为空";
 
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";

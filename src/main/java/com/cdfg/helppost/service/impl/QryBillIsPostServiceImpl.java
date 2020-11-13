@@ -13,6 +13,9 @@ import com.cdfg.helppost.service.QryBillIsPostService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +96,7 @@ public class QryBillIsPostServiceImpl implements QryBillIsPostService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout = 30,rollbackFor = Exception.class)
     public String updateLeaved(LeavedDto leavedDto, String worknumber) {
         Map param = new HashMap<String,String>();
         param.put("i_gwkh",leavedDto.getGwkh());
