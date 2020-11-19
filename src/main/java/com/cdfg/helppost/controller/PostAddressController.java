@@ -64,7 +64,9 @@ public class PostAddressController {
         }
 
         String token = request.getHeader("Authorization");
-        new Token().CheckToken(token);
+        String operator = new Token().CheckToken(token);
+
+        paDto.setOperator(operator);
 
         String address = paDto.getRec_provincename()+paDto.getRec_cityname()+paDto.getRec_areaname()+paDto.getRec_townname()+paDto.getRec_detailaddress();
         logger.info("取到收货地址管理接口的传入参数"+paDto.getGwkh()+"详细地址："+address);

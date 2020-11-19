@@ -68,6 +68,9 @@ public final class Constant {
     public static int errCode_20 = 1006;
     public static String errMsg_20 = "获取到的SEQNO值为空";
 
+    public static int errCode_21 = 1007;
+    public static String errMsg_21 = "获取到的SEQNO值异常";
+
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

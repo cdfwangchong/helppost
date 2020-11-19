@@ -37,7 +37,7 @@
       RECPROVINCENAME, RECCITYNAME, RECAREANAME, 
       DELETE_FLAG, FSDATE, RECTOWNNAME, 
       RECDETAILADDRESS)
-    values (SEQ_POSTADDRESS.nextval,#{gwkh,jdbcType=VARCHAR},#{rec_name,jdbcType=VARCHAR}, #{rec_phoneno,jdbcType=VARCHAR}, #{rec_postcode,jdbcType=VARCHAR},
+    values (#{SEQNO,jdbcType=VARCHAR},#{gwkh,jdbcType=VARCHAR},#{rec_name,jdbcType=VARCHAR}, #{rec_phoneno,jdbcType=VARCHAR}, #{rec_postcode,jdbcType=VARCHAR},
       #{rec_provincename,jdbcType=VARCHAR}, #{rec_cityname,jdbcType=VARCHAR}, #{rec_areaname,jdbcType=VARCHAR},
       #{deleteFlag,jdbcType=VARCHAR}, sysdate, #{rec_townname,jdbcType=VARCHAR},
       #{rec_detailaddress,jdbcType=VARCHAR})
@@ -56,6 +56,10 @@
       RECDETAILADDRESS = #{rec_detailaddress,jdbcType=VARCHAR}
     where GWKH = #{gwkh,jdbcType=VARCHAR}
   </update>
+
+    <select id="nextvalKey" resultType="java.lang.Integer">
+      select dbusrit.SEQ_POSTADDRESS.nextval AS seqno from dual
+  </select>
 
     <select id="ismodifyaddress" statementType="CALLABLE" resultType="java.util.Map">
         {CALL dbusrit.if_helppost.qry_ismodifyaddress

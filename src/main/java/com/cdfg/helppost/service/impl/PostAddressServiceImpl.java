@@ -2,6 +2,7 @@ package com.cdfg.helppost.service.impl;
 
 import cn.cdfg.exceptionHandle.ExceptionPrintMessage;
 import cn.cdfg.exceptionHandle.HelpPostNotFoundException;
+import com.cdfg.helppost.dao.InsertPostaddrlogDao;
 import com.cdfg.helppost.dao.PostaddressDao;
 import com.cdfg.helppost.pojo.dto.PostaddressDto;
 import com.cdfg.helppost.pojo.until.Login;
@@ -23,6 +24,9 @@ public class PostAddressServiceImpl implements PostAddressService {
 
     @Autowired
     PostaddressDao paDao;
+
+    @Autowired
+    InsertPostaddrlogDao ipalDao;
 
     Logger logger = Logger.getLogger(PostAddressServiceImpl.class);
 
@@ -80,6 +84,30 @@ public class PostAddressServiceImpl implements PostAddressService {
                 logger.info("顾客"+ipdDto.getGwkh()+"存在未完结的邮寄申请，不能修改地址");
                 throw new HelpPostNotFoundException(errCode14,errMsg14);
             }
+
+        try {
+            int seqno = paDao.nextvalKey();
+            if (seqno == 0) {
+                logger.error("获取到的SEQNO值为空");
+                throw new HelpPostNotFoundException(errCode_20,errMsg_20);
+            }
+            ipdDto.setSEQNO(seqno);
+        } catch (Exception e) {
+            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
+            logger.error("邮寄地址管理表获取异常");
+            throw new HelpPostNotFoundException(errCode_21,errMsg_21);
+        }
+
+        try {
+            result = ipalDao.insertPostAddrLog(ipdDto);
+            if (result > 0) {
+                logger.info("顾客"+ipdDto.getGwkh()+"地址操作日志表新增成功");
+            }
+        } catch (Exception e) {
+            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
+            logger.error("地址操作日志表新增成功");
+            throw new HelpPostNotFoundException(errCode_6,errMsg_6);
+        }
 
         try {
             result = paDao.insert(ipdDto);

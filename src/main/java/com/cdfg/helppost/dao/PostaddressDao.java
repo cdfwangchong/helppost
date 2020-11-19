@@ -16,4 +16,6 @@ public interface PostaddressDao {
     int updateByPrimaryKey(PostaddressDto record);
 
     Map ismodifyaddress(Map<String, String> param);
+
+    int nextvalKey();
 }

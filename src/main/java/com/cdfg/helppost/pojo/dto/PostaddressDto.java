@@ -9,6 +9,9 @@ import java.util.Date;
  */
 
 public class PostaddressDto implements Serializable {
+    public PostaddressDto() {
+    }
+
     public String getGwkh() {
         return gwkh;
     }
@@ -109,6 +112,14 @@ public class PostaddressDto implements Serializable {
         return serialVersionUID;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
     /**
      * 购物卡号
      */
@@ -168,6 +179,11 @@ public class PostaddressDto implements Serializable {
      * SEQNO
      */
     private int SEQNO;
+
+    /**
+     * 操作员
+     */
+    private String operator;
 
     private static final long serialVersionUID = 1L;
 }
