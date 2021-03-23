@@ -26,26 +26,13 @@ public final class Constant {
     public static String errMsg_6 = "数据写入异常";
 
     public static int errCode_7 = 1008;
-    public static String errMsg_7 = "获取version-control.txt文件内容异常";
+    public static String errMsg_7 = "收件人必须是顾客本人";
 
-    public static int errCode_8 = 3001;
-    public static String errMsg_8 = "提货单：";
-    public static String errMsg_8_1 = "门店与输入门店不一致";
+    public static int errCode_8 = 1009;
+    public static String errMsg_8 = "收件地址不能是岛内";
 
-    public static int errCode_9 = 3002;
-    public static String errMsg_9 = "离岛日期与输入日期不一致";
-
-    public static int errCode_10 = 3003;
-    public static String errMsg_10 = "已经退货";
-
-    public static int errCode_11 = 3004;
-    public static String errMsg_11 = "提货方式不是【邮寄提货】";
-
-    public static int errCode_12 = 3005;
-    public static String errMsg_12 = "离航班起飞时间不足48小时，不能取消";
-
-    public static int errCode_14 = 1009;
-    public static String errMsg_14 = "该顾客没有邮寄的商品";
+    public static int errCode_9 = 1010;
+    public static String errMsg_9 = "List中的数据没有正确写入顾客地址列表";
 
     public static int errCode14 = 2009;
     public static String errMsg14 = "存在未完结的邮寄申请，不能修改地址";
@@ -71,6 +58,8 @@ public final class Constant {
     public static int errCode_21 = 1007;
     public static String errMsg_21 = "获取到的SEQNO值异常";
 
+    public static int errCode_22 = 1008;
+    public static String errMsg_22 = "解绑信息写入异常";
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

@@ -41,6 +41,13 @@
   <select id="nextvalKey" resultType="java.lang.Integer" useCache="false" flushCache="true">
       select dbusrpos.SEQ_CUSTADDRLIST.nextval AS seqno from dual
   </select>
+  <update id="updateByPrimaryKey" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        update dburspos.sellhead_sh
+           set shthfs = 'J',
+         where SHXSDNO = #{item.shxsdno,jdbcType=VARCHAR}
+      </foreach>
+  </update>
 
   <insert id="insert" parameterType="java.util.List" useGeneratedKeys="false" >
     insert into dbusrpos.custaddrlist (SEQNO,GWKH,RECNAME,RECPHONENO,

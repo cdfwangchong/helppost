@@ -39,6 +39,7 @@ public class CustAddrListController {
 
         String token = request.getHeader("Authorization");
         String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
 
         //详细地址
         String address = ica.getRec_provincename()+ica.getRec_cityname()+ica.getRec_areaname()+ica.getRec_townname()+ica.getRec_detailaddress();
@@ -49,7 +50,7 @@ public class CustAddrListController {
         }
         String seqno = calService.insertCustAddrList(ica,worknumber);
         if (!seqno.isEmpty()) {
-            return new Result<String>(sucCode,sucMsg,seqno);
+            return new Result<String>(sucCode,sucMsg,"");
         }else {
             throw new HelpPostNotFoundException(errCode_3,errMsg_3);
         }

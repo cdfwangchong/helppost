@@ -65,7 +65,7 @@ public class PostAddressController {
 
         String token = request.getHeader("Authorization");
         String operator = new Token().CheckToken(token);
-
+//        String operator = "3859";
         paDto.setOperator(operator);
 
         String address = paDto.getRec_provincename()+paDto.getRec_cityname()+paDto.getRec_areaname()+paDto.getRec_townname()+paDto.getRec_detailaddress();
