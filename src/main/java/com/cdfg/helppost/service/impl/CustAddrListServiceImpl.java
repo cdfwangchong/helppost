@@ -189,11 +189,11 @@ public class CustAddrListServiceImpl implements CustAddrListService {
                 icaDto.setRec_name(ica.getRec_name());
                 icaDto.setRec_phoneno(ica.getRec_phoneno());
                 icaDto.setRec_postcode(ica.getRec_postcode());
-                icaDto.setRec_provincename(ica.getRec_provincename());
-                icaDto.setRec_cityname(ica.getRec_cityname());
-                icaDto.setRec_areaname(ica.getRec_areaname());
-                icaDto.setRec_townname(ica.getRec_townname());
-                icaDto.setRec_detailaddress(ica.getRec_detailaddress());
+                icaDto.setRec_provincename("");
+                icaDto.setRec_cityname("");
+                icaDto.setRec_areaname("");
+                icaDto.setRec_townname("");
+                icaDto.setRec_detailaddress("");
                 icaDto.setType(ica.getType());
                 icaDto.setMarket(entry.getKey());
                 icaDto.setRec_xsdno(entry.getValue());
