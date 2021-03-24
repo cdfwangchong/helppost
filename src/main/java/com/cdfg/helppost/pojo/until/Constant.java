@@ -60,6 +60,16 @@ public final class Constant {
 
     public static int errCode_22 = 1008;
     public static String errMsg_22 = "解绑信息写入异常";
+
+
+    public static int errCode19 = 2015;
+    public static String errMsg19 = "获取到的对象值为空";
+
+    public static int errCode21 = 2016;
+    public static String errMsg21 = "返回的运单轨迹结果集为空";
+
+    public static int errCode22 = 2017;
+    public static String errMsg22 = "查询运单轨迹存储过程返回值异常";
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

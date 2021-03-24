@@ -36,10 +36,9 @@ public class CustAddrListController {
             logger.error("商品邮寄接口获取到的对象值为空");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
-
         String token = request.getHeader("Authorization");
         String worknumber = new Token().CheckToken(token);
-//        String worknumber = "3859";
+//      String worknumber = "3859";
 
         //详细地址
         String address = ica.getRec_provincename()+ica.getRec_cityname()+ica.getRec_areaname()+ica.getRec_townname()+ica.getRec_detailaddress();

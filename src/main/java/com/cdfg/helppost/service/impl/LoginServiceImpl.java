@@ -61,7 +61,6 @@ public class LoginServiceImpl implements LoginService {
 
                 //得到token
                 String token = new Jwt().createToken(payload);
-
                 payload.put("token",token);
             }
         } catch (Exception e) {

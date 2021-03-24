@@ -63,9 +63,10 @@ public class QryBillIsPostServiceImpl implements QryBillIsPostService {
         }
         //取出ret_flag
         String ret_flag = (String) param.get("ret_flag");
-        if ("0".equals(ret_flag)) {
-            logger.error("该离岛日期使用邮寄提货票数已经满");
-            throw new HelpPostNotFoundException(errCode_17,errMsg_17);
+        String ret_msg = (String) param.get("ret_msg");
+        if (!"1".equals(ret_flag)) {
+            logger.error("用户"+login.getGwkh()+ret_msg);
+            throw new HelpPostNotFoundException(errCode,ret_msg);
         }
         return xsdnoDto;
     }
