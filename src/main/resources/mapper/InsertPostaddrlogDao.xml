@@ -4,11 +4,11 @@
 <mapper namespace="com.cdfg.helppost.dao.InsertPostaddrlogDao">
 
     <insert id="insertPostAddrLog" parameterType="com.cdfg.helppost.pojo.dto.PostaddressDto" useGeneratedKeys="false">
-    insert into POSTADDRESSLOG (SEQNO,GWKH,RECNAME, RECPHONENO, RECPOSTCODE,
+    insert into custpostaddrlog (GWKH,RECNAME, RECPHONENO, RECPOSTCODE,
       RECPROVINCENAME, RECCITYNAME, RECAREANAME,
       DELETE_FLAG, FSDATE, RECTOWNNAME,
       RECDETAILADDRESS,OPERATOR)
-    values (#{SEQNO,jdbcType=VARCHAR},#{gwkh,jdbcType=VARCHAR},#{rec_name,jdbcType=VARCHAR}, #{rec_phoneno,jdbcType=VARCHAR}, #{rec_postcode,jdbcType=VARCHAR},
+    values (#{gwkh,jdbcType=VARCHAR},#{rec_name,jdbcType=VARCHAR}, #{rec_phoneno,jdbcType=VARCHAR}, #{rec_postcode,jdbcType=VARCHAR},
       #{rec_provincename,jdbcType=VARCHAR}, #{rec_cityname,jdbcType=VARCHAR}, #{rec_areaname,jdbcType=VARCHAR},
       #{deleteFlag,jdbcType=VARCHAR}, sysdate, #{rec_townname,jdbcType=VARCHAR},
       #{rec_detailaddress,jdbcType=VARCHAR},#{operator,jdbcType=VARCHAR})

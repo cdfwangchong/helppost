@@ -54,7 +54,7 @@
   </update>
 
   <select id="nextvalKey" resultType="java.lang.Integer">
-      select dbusrit.SEQ_POSTADDRESS.nextval AS seqno from dual
+      select dbusrit.if_custservpost.nextval AS seqno from dual
   </select>
 
   <select id="ismodifyaddress" statementType="CALLABLE" resultType="java.util.Map">

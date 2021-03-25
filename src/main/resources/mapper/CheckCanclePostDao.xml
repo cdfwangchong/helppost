@@ -4,7 +4,7 @@
 <mapper namespace="com.cdfg.helppost.dao.CheckCanclePostDao">
 
     <select id="isCanclePost" statementType="CALLABLE" resultType="java.util.Map">
-        {CALL dbusrit.if_helppost.qry_cancelpost
+        {CALL dbusrit.if_custservpost.qry_cancelpost
         (#{seq_no,mode=IN,jdbcType=DECIMAL},
         #{ret_flag,mode=OUT,jdbcType=VARCHAR}
         )}
