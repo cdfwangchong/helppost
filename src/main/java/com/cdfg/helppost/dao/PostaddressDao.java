@@ -13,7 +13,7 @@ public interface PostaddressDao {
 
     PostaddressDto selectByPrimaryKey(String gwkh);
 
-    int updateByPrimaryKey(PostaddressDto record);
+//    int updateByPrimaryKey(PostaddressDto record);
 
     Map ismodifyaddress(Map<String, String> param);
 

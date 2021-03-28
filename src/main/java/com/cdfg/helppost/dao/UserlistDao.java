@@ -1,11 +1,11 @@
 package com.cdfg.helppost.dao;
 
-import com.cdfg.helppost.pojo.dto.Userlist;
+import com.cdfg.helppost.pojo.dto.GwkMain;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserlistDao {
 
-    Userlist selectByPrimaryKey(String gwkh);
+    GwkMain selectByPrimaryKey(String gwkh);
 
 }

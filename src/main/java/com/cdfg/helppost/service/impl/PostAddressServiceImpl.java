@@ -2,20 +2,20 @@ package com.cdfg.helppost.service.impl;
 
 import cn.cdfg.exceptionHandle.ExceptionPrintMessage;
 import cn.cdfg.exceptionHandle.HelpPostNotFoundException;
-import com.cdfg.helppost.dao.InsertPostaddrlogDao;
 import com.cdfg.helppost.dao.PostaddressDao;
+import com.cdfg.helppost.dao.UserlistDao;
+import com.cdfg.helppost.pojo.dto.GwkMain;
 import com.cdfg.helppost.pojo.dto.PostaddressDto;
+
 import com.cdfg.helppost.pojo.until.Login;
 import com.cdfg.helppost.service.PostAddressService;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.cdfg.helppost.pojo.until.Constant.*;
 
@@ -26,7 +26,7 @@ public class PostAddressServiceImpl implements PostAddressService {
     PostaddressDao paDao;
 
     @Autowired
-    InsertPostaddrlogDao ipalDao;
+    UserlistDao ulDao;
 
     Logger logger = Logger.getLogger(PostAddressServiceImpl.class);
 
@@ -68,43 +68,28 @@ public class PostAddressServiceImpl implements PostAddressService {
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout = 30,rollbackFor = Exception.class)
     public int insertPostAddress(PostaddressDto ipdDto) {
         int result;
-        Map param = new HashMap<String,Integer>();
+        //查出顾客的购物卡号
+        GwkMain ul;
         try {
-            //先判断是否可以修改
-            param.put("i_gwkh",ipdDto.getGwkh());
-            paDao.ismodifyaddress(param);
-
+            ul = ulDao.selectByPrimaryKey(ipdDto.getGwkh());
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("判断是否可以写入地址表时存储过程返回异常");
-            throw new HelpPostNotFoundException(errCode,errMsg);
+            logger.error(ipdDto.getGwkh()+"未注册");
+            throw new HelpPostNotFoundException(errCode7,ipdDto.getGwkh()+errMsg7);
         }
-            String ret_flag = (String) param.get("ret_flag");
-            if ("1".equals(ret_flag)) {
-                logger.info("顾客"+ipdDto.getGwkh()+"存在未完结的邮寄申请，不能修改地址");
-                throw new HelpPostNotFoundException(errCode14,errMsg14);
-            }
-        try {
-            int seqno = paDao.nextvalKey();
-            if (seqno == 0) {
-                logger.error("获取到的SEQNO值为空");
-                throw new HelpPostNotFoundException(errCode_20,errMsg_20);
-            }
-            ipdDto.setSEQNO(seqno);
-        } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("邮寄地址管理表获取异常");
-            throw new HelpPostNotFoundException(errCode_21,errMsg_21);
+        String gwkh = ul.getGmcardno();
+        ipdDto.setGwkh(gwkh);
+        String recname = ul.getGmname();//EOP用户表中的顾客名称
+        String crname = ipdDto.getRec_name();//接口传入的顾客名称
+        logger.info(gwkh+"EOP用户表中的顾客名称"+recname);
+        logger.info(gwkh+"接口传入的收件人名称"+crname);
+        logger.info("新增顾客地址前查出客人购物卡号"+gwkh);
+        if ("海南省".equals(ipdDto.getRec_provincename())) {
+            logger.info("收件地址必须是岛外");
+            throw new HelpPostNotFoundException(errCode_8,errMsg_8);
         }
-        try {
-            result = ipalDao.insertPostAddrLog(ipdDto);
-            if (result > 0) {
-                logger.info("顾客"+ipdDto.getGwkh()+"地址操作日志表新增成功");
-            }
-        } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("地址操作日志表新增成功");
-            throw new HelpPostNotFoundException(errCode_6,errMsg_6);
+        if (!recname.equals(crname)) {
+            logger.info("收件必须是顾客本人");
+            throw new HelpPostNotFoundException(errCode_7,errMsg_7);
         }
         try {
             result = paDao.insert(ipdDto);
@@ -118,4 +103,41 @@ public class PostAddressServiceImpl implements PostAddressService {
         }
         return result;
     }
+//    @Override
+//    public int updatePostAddress(PostaddressDto ipaDto) {
+//        //查出顾客的购物卡号
+//        Userlist ul;
+//        try {
+//            ul = ulDao.selectByPrimaryKey(ipaDto.getGwkh());
+//        } catch (Exception e) {
+//            logger.error(ipaDto.getGwkh()+"未注册");
+//            throw new HelpPostNotFoundException(errCode7,ipaDto.getGwkh()+errMsg7);
+//        }
+//        String gwkh = ul.getIdseq();
+//        ipaDto.setGwkh(gwkh);
+//        logger.info("更新顾客地址前查出客人购物卡号"+ul.getIdseq());
+//        int result;
+//        String recname = ul.getName();//EOP用户表中的顾客名称
+//        String crname = ipaDto.getRec_name();//接口传入的顾客名称
+//        logger.info(gwkh+"EOP用户表中的顾客名称"+recname);
+//        logger.info(gwkh+"接口传入的收件人名称"+crname);
+//        if ("海南省".equals(ipaDto.getRec_provincename())) {
+//            logger.info(gwkh+"收件地址必须是岛外");
+//            throw new HelpPostNotFoundException(errCode_8,errMsg_8);
+//        }
+//        if (!recname.equals(crname)) {
+//            logger.info(gwkh+"收件必须是顾客本人");
+//            throw new HelpPostNotFoundException(errCode_7,errMsg_7);
+//        }
+//        try {
+//            result = paDao.updateByPrimaryKey(ipaDto);
+//            if (result > 0) {
+//                logger.info(gwkh+"顾客"+ul.getName()+"地址更新成功");
+//            }
+//        } catch (Exception e) {
+//            logger.error(gwkh+"邮寄地址管理表更新异常");
+//            throw new HelpPostNotFoundException(errCode,errMsg);
+//        }
+//        return result;
+//    }
 }

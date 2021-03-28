@@ -11,8 +11,6 @@ import java.util.Date;
  */
 
 public class PostaddressDto implements Serializable {
-    public PostaddressDto() {
-    }
 
     public String getGwkh() {
         return gwkh;

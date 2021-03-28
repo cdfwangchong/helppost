@@ -1,28 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cdfg.helppost.dao.UserlistDao">
-  <resultMap id="BaseResultMap" type="com.cdfg.helppost.pojo.dto.Userlist">
-    <id column="IDSEQ" jdbcType="VARCHAR" property="idseq" />
-    <result column="IDTYPE" jdbcType="VARCHAR" property="idtype" />
-    <result column="IDNO" jdbcType="VARCHAR" property="idno" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="TELPHNO" jdbcType="VARCHAR" property="telphno" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="WECHATID" jdbcType="VARCHAR" property="wechatid" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="REGISTERDATE" jdbcType="TIMESTAMP" property="registerdate" />
-    <result column="LASTLOGINTIME" jdbcType="TIMESTAMP" property="lastlogintime" />
-    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+  <resultMap id="BaseResultMap" type="com.cdfg.helppost.pojo.dto.GwkMain">
+      <id column="GMCARDNO" jdbcType="VARCHAR" property="gmcardno" />
+      <result column="GMZJLB" jdbcType="VARCHAR" property="gmzjlb" />
+      <result column="GMZJNO" jdbcType="VARCHAR" property="gmzjno" />
+      <result column="GMSTATUS" jdbcType="VARCHAR" property="gmstatus" />
+      <result column="GMGKLB" jdbcType="VARCHAR" property="gmgklb" />
+      <result column="GMNAME" jdbcType="VARCHAR" property="gmname" />
+      <result column="GMNATION" jdbcType="VARCHAR" property="gmnation" />
+      <result column="GMGENDER" jdbcType="VARCHAR" property="gmgender" />
+      <result column="GMBIRTH" jdbcType="TIMESTAMP" property="gmbirth" />
+      <result column="GMTELPH" jdbcType="VARCHAR" property="gmtelph" />
+      <result column="GMFZJG" jdbcType="VARCHAR" property="gmfzjg" />
+      <result column="GMDRASS" jdbcType="VARCHAR" property="gmdrass" />
+      <result column="GMISMESSAGE" jdbcType="VARCHAR" property="gmismessage" />
+      <result column="GMHISJE" jdbcType="DECIMAL" property="gmhisje" />
+      <result column="GMHISCS" jdbcType="DECIMAL" property="gmhiscs" />
+      <result column="GMLIMITJE" jdbcType="DECIMAL" property="gmlimitje" />
+      <result column="GMLIMITCS" jdbcType="DECIMAL" property="gmlimitcs" />
+      <result column="GMBSSPJS" jdbcType="DECIMAL" property="gmbsspjs" />
+      <result column="GMPTBZ" jdbcType="VARCHAR" property="gmptbz" />
+      <result column="GMREMARK" jdbcType="VARCHAR" property="gmremark" />
+      <result column="GMKKDATE" jdbcType="TIMESTAMP" property="gmkkdate" />
+      <result column="GMZK" jdbcType="DECIMAL" property="gmzk" />
+      <result column="GMZKKSRQ" jdbcType="TIMESTAMP" property="gmzkksrq" />
+      <result column="GMZKJSRQ" jdbcType="TIMESTAMP" property="gmzkjsrq" />
+      <result column="GMEMAIL" jdbcType="VARCHAR" property="gmemail" />
+      <result column="GMLJBH" jdbcType="VARCHAR" property="gmljbh" />
+      <result column="GMLJDD" jdbcType="VARCHAR" property="gmljdd" />
+      <result column="GMLJRQ" jdbcType="TIMESTAMP" property="gmljrq" />
+      <result column="GMTR1" jdbcType="VARCHAR" property="gmtr1" />
+      <result column="GMTR2" jdbcType="VARCHAR" property="gmtr2" />
+      <result column="GMTR3" jdbcType="VARCHAR" property="gmtr3" />
+      <result column="GMBNBSSPJS" jdbcType="DECIMAL" property="gmbnbsspjs" />
+      <result column="GMGXRQ" jdbcType="TIMESTAMP" property="gmgxrq" />
+      <result column="GMMDTYPE" jdbcType="VARCHAR" property="gmmdtype" />
+      <result column="GMMDKSRQ" jdbcType="TIMESTAMP" property="gmmdksrq" />
+      <result column="GMMDJSRQ" jdbcType="TIMESTAMP" property="gmmdjsrq" />
+      <result column="GMMDSOURCE" jdbcType="VARCHAR" property="gmmdsource" />
+      <result column="GMTR4" jdbcType="VARCHAR" property="gmtr4" />
+      <result column="GMTR5" jdbcType="VARCHAR" property="gmtr5" />
+      <result column="GMTELMODIFIABLE" jdbcType="CHAR" property="gmtelmodifiable" />
+      <result column="GMISMEMBER" jdbcType="CHAR" property="gmismember" />
+      <result column="GMCONFIRMMEMBER" jdbcType="CHAR" property="gmconfirmmember" />
+      <result column="GMISNEWTEL" jdbcType="CHAR" property="gmisnewtel" />
   </resultMap>
-  <sql id="Base_Column_List">
-    IDSEQ, IDTYPE, IDNO, "STATUS", "NAME", TELPHNO, EMAIL, WECHATID, "PASSWORD", REGISTERDATE, 
-    LASTLOGINTIME, MEMO
+    <sql id="Base_Column_List">
+    GMCARDNO, GMZJLB, GMZJNO, GMSTATUS, GMGKLB, GMNAME, GMNATION, GMGENDER, GMBIRTH,
+    GMTELPH, GMFZJG, GMDRASS, GMISMESSAGE, GMHISJE, GMHISCS, GMLIMITJE, GMLIMITCS, GMBSSPJS,
+    GMPTBZ, GMREMARK, GMKKDATE, GMZK, GMZKKSRQ, GMZKJSRQ, GMEMAIL, GMLJBH, GMLJDD, GMLJRQ,
+    GMTR1, GMTR2, GMTR3, GMBNBSSPJS, GMGXRQ, GMMDTYPE, GMMDKSRQ, GMMDJSRQ, GMMDSOURCE,
+    GMTR4, GMTR5, GMTELMODIFIABLE, GMISMEMBER, GMCONFIRMMEMBER, GMISNEWTEL
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List"/>
-    from USERLIST
-    where IDSEQ = #{gwkh,jdbcType=VARCHAR}
+    from DBUSRLIMT.GWK_MAIN
+    where GMCARDNO = #{gwkh,jdbcType=VARCHAR}
   </select>
 </mapper>

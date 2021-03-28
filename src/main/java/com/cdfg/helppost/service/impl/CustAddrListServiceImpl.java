@@ -6,9 +6,9 @@ import com.cdfg.helppost.dao.CheckCanclePostDao;
 import com.cdfg.helppost.dao.CustaddrlistDao;
 import com.cdfg.helppost.dao.InsertPostSubDao;
 import com.cdfg.helppost.dao.UserlistDao;
+import com.cdfg.helppost.pojo.dto.GwkMain;
 import com.cdfg.helppost.pojo.dto.InsertCustAddrAndListDto;
 import com.cdfg.helppost.pojo.dto.InsertCustAddrDto;
-import com.cdfg.helppost.pojo.dto.Userlist;
 import com.cdfg.helppost.pojo.until.BillEntity;
 import com.cdfg.helppost.pojo.until.PostLogEntity;
 import com.cdfg.helppost.service.CustAddrListService;
@@ -68,9 +68,9 @@ public class CustAddrListServiceImpl implements CustAddrListService {
             }
         }
         //查出顾客的购物卡号
-        Userlist ul = ulDao.selectByPrimaryKey(ica.getGwkh());
-        String gwkh = ul.getIdseq();//客人的购物卡号
-        String username = ul.getName();//客人姓名
+        GwkMain ul = ulDao.selectByPrimaryKey(ica.getGwkh());
+        String gwkh = ul.getGmcardno();//客人的购物卡号
+        String username = ul.getGmname();//客人姓名
         if (!username.equals(ica.getRec_name())) {
             logger.info("收件人必须是顾客本人");
             throw new HelpPostNotFoundException(errCode_7,errMsg_7);
@@ -235,7 +235,7 @@ public class CustAddrListServiceImpl implements CustAddrListService {
             }
         }
     } catch (Exception e) {
-        logger.error("邮寄信息写入异常");
+        logger.error(gwkh+"邮寄信息写入异常");
         throw new HelpPostNotFoundException(errCode_6, errMsg_6);
         }
         int index;
@@ -247,7 +247,7 @@ public class CustAddrListServiceImpl implements CustAddrListService {
             throw new HelpPostNotFoundException(errCode_6, errMsg_6);
         }
         if (index != icadList.size()) {
-            logger.error("没有正确写入邮寄提交日志表");
+            logger.error(gwkh+"没有正确写入邮寄提交日志表");
             throw new HelpPostNotFoundException(errCode_6, errMsg_6);
         }
         int ret;
@@ -255,11 +255,11 @@ public class CustAddrListServiceImpl implements CustAddrListService {
             ret = clDao.insert(icadList);
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("数据没有正确写入顾客地址列表");
+            logger.error(gwkh+"数据没有正确写入顾客地址列表");
             throw new HelpPostNotFoundException(errCode_6, errMsg_6);
         }
         if (ret != icadList.size()) {
-            logger.error("数据没有正确写入顾客地址列表");
+            logger.error(gwkh+"数据没有正确写入顾客地址列表");
             throw new HelpPostNotFoundException(errCode_6, errMsg_6);
         }
         return "1";

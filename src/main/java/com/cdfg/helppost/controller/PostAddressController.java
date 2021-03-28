@@ -19,7 +19,7 @@ import static com.cdfg.helppost.pojo.until.Constant.errMsg_5;
  * project name :自助邮寄
  * for:收货地址管理和新增接口
  * author：wangc
- * time：2020-10-10
+ * time：2021-3-26
  * */
 @CrossOrigin
 @RestController
@@ -41,7 +41,6 @@ public class PostAddressController {
             logger.error("收货地址管理接口传入的参数值为null");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
-
         String token = request.getHeader("Authorization");
         new Token().CheckToken(token);
 
@@ -59,19 +58,16 @@ public class PostAddressController {
     @ResponseBody
     public Result<String> insertPostAddress(HttpServletRequest request,@RequestBody PostaddressDto paDto) {
         if (paDto == null){
-            logger.error("收货地址新增接口传入的参数值为null");
+            logger.error("收货地址新增接口传入的参数值为空");
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
-
         String token = request.getHeader("Authorization");
-        String operator = new Token().CheckToken(token);
-//        String operator = "3859";
+//        String operator = new Token().CheckToken(token);
+        String operator = "3859";
         paDto.setOperator(operator);
-
         String address = paDto.getRec_provincename()+paDto.getRec_cityname()+paDto.getRec_areaname()+paDto.getRec_townname()+paDto.getRec_detailaddress();
         logger.info("取到收货地址管理接口的传入参数"+paDto.getGwkh()+"详细地址："+address);
         int rs = paService.insertPostAddress(paDto);
-
         return new Result<String>(sucCode,sucMsg,"");
     }
 }
