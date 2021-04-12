@@ -62,8 +62,8 @@ public class PostAddressController {
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
         String token = request.getHeader("Authorization");
-//        String operator = new Token().CheckToken(token);
-        String operator = "3859";
+        String operator = new Token().CheckToken(token);
+//        String operator = "3859";
         paDto.setOperator(operator);
         String address = paDto.getRec_provincename()+paDto.getRec_cityname()+paDto.getRec_areaname()+paDto.getRec_townname()+paDto.getRec_detailaddress();
         logger.info("取到收货地址管理接口的传入参数"+paDto.getGwkh()+"详细地址："+address);

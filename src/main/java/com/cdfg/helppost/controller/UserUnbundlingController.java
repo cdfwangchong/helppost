@@ -38,9 +38,9 @@ public class UserUnbundlingController {
             throw new HelpPostNotFoundException(errCode_5,errMsg_5);
         }
         String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
+        String worknumber = new Token().CheckToken(token);
 
-        String worknumber = "3859";
+//        String worknumber = "3859";
         Map<String,String> retmap = uuservice.userUnbundling(unbundlingDto,worknumber);
         String ret_flag = retmap.get("ret_flag");
         String ret_msg = retmap.get("ret_msg");
